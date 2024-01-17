@@ -5,7 +5,7 @@ model: azureml:construction_object_detection_model:1
 code_configuration:
   code: ./
   scoring_script: score.py
-environment: azureml:AzureML-AutoML-DNN-Vision-GPU:118
+environment: azureml:AzureML-AutoML-DNN-Vision-GPU:129
   
 instance_type: Standard_NC6s_v3
 instance_count: 1

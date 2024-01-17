@@ -1,4 +1,9 @@
-# Azure ML Setup and Configuration Guide
+# MLOPs for Azure Machine Learning Vision Models with Automated ML
+
+
+## Introduction
+
+![Alt text](./assets/technical_design.png)
 
 This guide provides step-by-step instructions for setting up and configuring your Azure Machine Learning environment using both PowerShell and Bash. Please replace placeholder values (e.g., `<subscription-id>`, `<workspace>`, `<resource-group>`, `<location>`) with your actual Azure subscription and resource details.
 
@@ -24,7 +29,7 @@ This guide provides step-by-step instructions for setting up and configuring you
         az extension add -n ml -y 
         ```
 - git clone repo
-        git clone https://github.com/anildwarepo/
+        git clone https://github.com/anildwarepo/amlvision-mlops
 
 ## Azure Login
 
@@ -167,7 +172,7 @@ az ml data create -f .\src\create_mltable\create_mltable_validation_dataset.yml 
 
 ## Create AutoML Training Job
 
-Create pipeline job.
+Create pipeline job. You can run multiple experiments by changing tile_grid_size to either "5x5" or "9x9" to see if we are able to get better results.
 
 ```bash
 az ml job create -f .\src\training\automl_training_pipeline.yml -w $aml_workspace -g $aml_resource_group
@@ -180,3 +185,17 @@ az ml online-endpoint create -f .\src\deployment\endpoint.yml -w $aml_workspace 
 
 az ml online-deployment create -f .\src\deployment\deployment.yml -w $aml_workspace -g $aml_resource_group
 ```
+
+
+
+## Inference
+
+Update api-key in the score.py file and run the following command to test the endpoint.
+
+```bash
+./src/inference/score.py
+```
+
+Result:
+
+![results](./assets/inference_result.png)

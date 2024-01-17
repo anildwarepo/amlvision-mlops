@@ -1,5 +1,5 @@
 $schema: https://azuremlschemas.azureedge.net/latest/environment.schema.json
-name: mltable_env
-image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
-conda_file: ../create_mltable/conda_create_mltable.yml
+name: gpu_inference_env
+image: mcr.microsoft.com/azureml/openmpi4.1.0-cuda11.6-cudnn8-ubuntu20.04
+conda_file: ../deployment/conda.yml
 description: Environment created from a Docker image plus Conda environment.

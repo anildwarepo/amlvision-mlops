@@ -7,8 +7,8 @@ def init():
     global pyfunc_model
     # Get the path to the deployed model file and load it
     #model_dir =os.getenv('AZUREML_MODEL_DIR')
-    model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"), "mlflow-model")
-    #model_file = os.listdir(model_dir)[0]
+    model_path = os.path.join(os.getenv("AZUREML_MODEL_DIR"))
+    print(f"anildwaDEBUG: {os.listdir(model_path)}")
     #model_path = os.path.join(os.getenv('AZUREML_MODEL_DIR'), model_file)
     pyfunc_model = mlflow.pyfunc.load_model(model_path)
 

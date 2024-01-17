@@ -32,10 +32,10 @@ jobs:
       - name: Install az ml & set default values for AML
         run: | #setup: provide group, workspace and location
           az extension add -n ml -y --version 2.2.1
-          az configure --defaults group=aml-rg workspace=aml-testws location=westus
+          az configure --defaults group=ml workspace=ws02ent location=westus
       - name: run training and model validation
         run: |
-         az ml job create -s -f src/workshop/core/pipelines/training_pipeline.yml
+         az ml job create -f ./src/training/automl_training_pipeline.yml 
 
       - name:  Create Pull Request to Main
         uses: thomaseizinger/create-pull-request@master
