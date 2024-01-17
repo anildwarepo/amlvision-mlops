@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/data.schema.json
+name: construction_labelled_data_with_coco
+version: 1
+description: training data.
+type: uri_folder
+path: ../../training_data
+
+

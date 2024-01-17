@@ -1,0 +1,28 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: ./
+command: >-
+  python dataprep.py 
+  --input_folder ${{inputs.input_folder}}
+  --output_folder ${{outputs.output_folder}}
+  --run_mode ${{inputs.run_mode}}
+  
+inputs:
+  input_folder:
+    type: uri_folder
+    path: azureml://datastores/workspaceblobstore/paths/LocalUpload/e0a7504c7743702b4ffbfb5566b9a1f8/v1/
+  run_mode: "remote"
+  
+outputs:
+  output_folder:
+    type: uri_folder
+    path: azureml://datastores/workspaceblobstore/paths/amlvisio-data-prepped/
+    
+    
+environment:
+  conda_file: ./conda_data_prep.yml
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:latest
+  
+compute: azureml:training-cpu-cluster
+display_name: amlvision-dataprep
+experiment_name: amlvision-dataprep
+description: dataprep step for aml vision

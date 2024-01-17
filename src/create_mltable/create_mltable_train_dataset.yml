@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/data.schema.json
+name: construction_labelled_data_with_coco_train
+version: 7
+description: training data.
+type: mltable
+path: azureml://datastores/workspaceblobstore/paths/LocalUpload/8c920d5d5994f81cc82b286c429a1667/training_data/training-mltable-folder
+
+

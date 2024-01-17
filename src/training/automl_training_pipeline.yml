@@ -1,0 +1,49 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+description: construction plan object detection pipeline with tiling
+display_name: construction-plan-object-detection-with-tiling-pipeline
+experiment_name: construction-plan-object-detection-with-tiling-pipeline
+settings:
+  default_compute: azureml:gpu-cluster-a100
+
+inputs:
+  training_data: 
+    path: azureml:construction_labelled_data_with_coco_train:2
+    type: mltable
+
+  validation_data:
+    path: azureml:construction_labelled_data_with_coco_validation:1
+    type: mltable
+
+jobs:
+  image_object_detection_node:
+    type: automl
+    experiment_name: construction-plan-object-detection-experiment-with-tiling
+    description: construction plan object detection experiment with tiling
+    task: image_object_detection
+    training_data: ${{parent.inputs.training_data}}
+    validation_data: ${{parent.inputs.validation_data}}
+    compute: azureml:gpu-cluster-a100
+    primary_metric: mean_average_precision  
+    target_column_name: "label"
+    tags:
+        custom_tag: "Custom value"
+    limits:
+      max_trials: 10
+      max_concurrent_trials: 1
+    search_space:
+      - model_name:
+          type: choice
+          values: ["fasterrcnn_resnet50_fpn"]
+      - tile_grid_size:
+          type: choice
+          values: ["5x3"]
+    outputs:
+      best_model:
+        type: mlflow_model
+  register_model_node:
+    type: command
+    component: file:./component_register_model.yaml
+    inputs:
+      model_input_path: ${{parent.jobs.image_object_detection_node.outputs.best_model}}
+      model_base_name: construction_object_detection_model

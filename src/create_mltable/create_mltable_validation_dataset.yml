@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/data.schema.json
+name: construction_labelled_data_with_coco_validation
+version: 4
+description: validation data.
+type: mltable
+path: azureml://datastores/workspaceblobstore/paths/LocalUpload/8c920d5d5994f81cc82b286c429a1667/training_data/validation-mltable-folder
+
+

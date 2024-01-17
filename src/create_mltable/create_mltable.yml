@@ -1,0 +1,29 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: ./
+command: >-
+  python create_mltable.py 
+  --input_folder ${{inputs.training_data_folder_path}}
+  --output_folder ${{outputs.output_folder}}
+  --azure_storage_url ${{inputs.azure_storage_url}}
+
+  
+inputs:
+  training_data_folder_path:
+    type: uri_folder
+    path: azureml://datastores/workspaceblobstore/paths/LocalUpload/8c920d5d5994f81cc82b286c429a1667/training_data/
+  run_mode: "remote"
+  azure_storage_url: "azureml://subscriptions/840b5c5c-3f4a-459a-94fc-6bad2a969f9d/resourcegroups/ml/workspaces/ws02ent/datastores/workspaceblobstore/paths/LocalUpload/8c920d5d5994f81cc82b286c429a1667/training_data/augmented-samples/images/"
+  
+  
+outputs:
+  output_folder:
+    type: uri_folder
+    path: azureml://datastores/workspaceblobstore/paths/LocalUpload/8c920d5d5994f81cc82b286c429a1667/training_data/
+
+    
+environment: azureml:mltable_env:1
+  
+compute: azureml:cpu-cluster
+display_name: construction_mltable
+experiment_name: construction_mltable
+description: create mltable for construction data.
